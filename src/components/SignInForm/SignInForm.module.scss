@@ -1,0 +1,74 @@
+/* SignInForm.module.scss */
+.container {
+  background: #f4f4f4;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+}
+
+.leftSection {
+  padding: 4rem;
+  background-color: #ffffff;
+  @media (max-width: 600px) {
+    padding: 2rem; // Adjust padding for smaller devices
+  }
+}
+
+.logo {
+  width: 120px;
+  border-radius: 50%;
+  z-index: 1; 
+  background-color: #f0f0f0;
+  border: 5px solid #4caf50; // Add a border
+  margin-top: 60px;
+  animation: fadeIn 2s ease-in-out infinite alternate;
+
+}
+
+.gradientButton {
+  background: linear-gradient(to right, #4caf50, #81c784);
+  color: white;
+  padding: 0.75rem 2rem;
+  font-weight: bold;
+  width: 100%;
+}
+
+.rightSection {
+  background: linear-gradient(to right, #4caf50, #81c784);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+}
+
+.errorMessage {
+  color: #e53935;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.gradientBackground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #e8f5e9;
+  padding: 5px;
+}
+
+.createAccountButton {
+  margin-top: 16px;
+  text-transform: none;
+  font-weight: bold;
+  text-decoration: none;
+  color: #4caf50; /* Green color */
+  border: 1px solid #4caf50; /* Green border */
+  padding: 0.5rem 1rem;
+  display: inline-block;
+  text-align: center;
+  border-radius: 4px; /* Rounded corners for consistency with MUI */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
