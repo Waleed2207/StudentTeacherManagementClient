@@ -17,20 +17,25 @@ function App() {
       <Provider store={store}> 
       <UserContext.Provider value={{ user, setUser }}>
       <Routes>
-          <Route
+         <Route
             path="/"
             element={
               isAuthenticated ? (
                 user?.role === "Teacher" ? (
                   <Navigate to="/dashboard" replace />
-                ) : (
+                ) : user?.role === "Student" ? (
                   <Navigate to="/courses" replace />
+                ) : user?.role === "Admin" ? (
+                  <Navigate to="/dashboard" replace />
+                ) : (
+                  <div>Unauthorized role</div> // Optional fallback
                 )
               ) : (
                 <SignIn onSignInSuccess={handleSignIn} />
               )
             }
           />
+
         <Route
           path="/dashboard"
           element={

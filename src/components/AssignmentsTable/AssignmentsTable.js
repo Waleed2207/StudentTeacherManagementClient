@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'; // At the top of AssignmentsTabl
 
 const AssignmentsTable = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [assignments, setAssignments] = useState([]);
   const [error, setError] = useState(null);
   const { isAuthenticated } = useAuth();
@@ -77,10 +78,14 @@ const AssignmentsTable = () => {
       setIsLoading(true);
       setError(null);
       const token = localStorage.getItem("token");
-      const response = await fetch(`${SERVER_URL}/api/assignments`, {
+      let url = `${SERVER_URL}/api/assignments`;
+      if (user.role === "Admin") {
+        url = `${SERVER_URL}/api/assignments/admin`;
+      }
+      const response = await fetch(url, {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${token}`,  // Make sure this string looks exactly like Bearer eyJ...
+          'Authorization': `Bearer ${token}`,  
           'Content-Type': 'application/json'
         }
       });
@@ -294,11 +299,18 @@ const AssignmentsTable = () => {
   return (
     <Box>
       <Typography variant="h4">Assignments</Typography>
-      <Box display="flex" justifyContent="flex-end" mb={2}>
-        <Button variant="contained" color="primary" fontWeight= 'bold' size='Bold' onClick={handleClickOpenDialog}>
-          Add New Assignment
-        </Button>
-      </Box>
+      {user.role !== 'Admin' && (
+        <Box display="flex" justifyContent="flex-end" mb={2}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleClickOpenDialog}
+            sx={{ fontWeight: 'bold',  size:'Bold' }}
+          >
+            Add New Assignment
+          </Button>
+        </Box>
+      )}
       <Collapse in={openCollapse}>
         <Alert variant="filled" severity={error ? 'error' : 'info'} sx={{ color: 'white', my: 3 }} onClose={handleCloseCollapse}>
           {error ? `${error}.` : message}
